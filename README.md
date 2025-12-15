@@ -1,53 +1,94 @@
-# TutorHub Service (Spring Boot + PostgreSQL)
+# TutorHub Service
 
-A small REST API built with Spring Boot and PostgreSQL.
+Backend service for TutorHub, built with Spring Boot and PostgreSQL.
 
-## Tech
+## What this service currently does
+
+- Health endpoint to confirm the service is alive.
+- Task API:
+  - Create a task
+  - List tasks
+  - Get a task by identifier
+  - Mark a task as complete
+  - Validation errors return a clear JSON response
+  - Missing tasks return a clear JSON response
+
+## Requirements
+
 - Java 17
-- Spring Boot
-- Maven
-- PostgreSQL
+- PostgreSQL 16 (or compatible)
+- Git
+- This repository includes the Maven Wrapper, so you do not need to install Maven separately.
 
-## Run locally (WSL)
+## Database setup
 
-### 1) Start PostgreSQL on WSL(linux)
+This project expects a PostgreSQL database.
 
-Check it's running:
-```bash
-pg_isready
+Example setup (run in a terminal):
 
+1) Confirm PostgreSQL is running
+   pg_isready
 
-2. Set Environment vars
-export TUTORHUB_DB_URL="jdbc:postgresql://localhost:5433/tutorhub"
-export TUTORHUB_DB_USER="tutorhub_app"
-export TUTORHUB_DB_PASSWORD="YOUR_PASSWORD"
+2) Create a database user (role)
+   sudo -u postgres createuser -P tutorhub_app
 
-3. Run tests
-./mvnw test
+3) Create the database owned by that user
+   sudo -u postgres createdb -O tutorhub_app tutorhub
 
-4. Run Service
-./mvnw spring-boot:run
+If your PostgreSQL is not running on port 5432, confirm the port in PostgreSQL:
+  sudo -u postgres psql -c "SHOW port;"
 
-API Calls
+Make sure your application configuration matches your PostgreSQL host, port, database name, username, and password.
 
-see health
-curl -i -X POST http://localhost:8080/tasks \
-  -H "Content-Type: application/json" \
-  -d '{"title":"First task"}'
+## Run tests
 
-create task
-curl -i -X POST http://localhost:8080/tasks \
-  -H "Content-Type: application/json" \
-  -d '{"title":"First task"}'
+From the project root:
 
-list task
-curl -i http://localhost:8080/tasks
+  ./mvnw test
 
-get task by id
-curl -i http://localhost:8080/tasks/1
+## Run the service
 
-mark task as complete
-curl -i -X PATCH http://localhost:8080/tasks/1/complete
+  ./mvnw spring-boot:run
 
+The service will start on:
+  http://localhost:8080
 
+## API quick checks (using curl)
+
+Health:
+
+  curl -i http://localhost:8080/health
+
+List tasks:
+
+  curl -i http://localhost:8080/tasks
+
+Create a task:
+
+  curl -i -X POST http://localhost:8080/tasks \
+    -H "Content-Type: application/json" \
+    -d '{"title":"First task"}'
+
+Validation example (title is required):
+
+  curl -i -X POST http://localhost:8080/tasks \
+    -H "Content-Type: application/json" \
+    -d '{"title":""}'
+
+Get task by identifier:
+
+  curl -i http://localhost:8080/tasks/1
+
+Not found example:
+
+  curl -i http://localhost:8080/tasks/999999
+
+Mark task as complete:
+
+  curl -i -X PATCH http://localhost:8080/tasks/1/complete
+
+## Notes for Windows + WSL
+
+If you run the service in WSL, you can still call it from Windows or WSL using:
+  http://localhost:8080
 
