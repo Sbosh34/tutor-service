@@ -31,3 +31,18 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Maven build output
+target/
+
+# Local artefacts
+*.zip
+
+# IntelliJ / VS Code
+.idea/
+*.iml
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
