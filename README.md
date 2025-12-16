@@ -50,45 +50,44 @@ From the project root:
 
   ./mvnw spring-boot:run
 
-The service will start on:
-  http://localhost:8080
+The service will start on your LocalHost
 
 ## API quick checks (using curl)
 
 Health:
 
-  curl -i http://localhost:8080/health
+  curl -i <LocalHost>/health
 
 List tasks:
 
-  curl -i http://localhost:8080/tasks
+  curl -i <LocalHost>/tasks
 
 Create a task:
 
-  curl -i -X POST http://localhost:8080/tasks \
+  curl -i -X POST <LocalHost>/tasks \
     -H "Content-Type: application/json" \
     -d '{"title":"First task"}'
 
 Validation example (title is required):
 
-  curl -i -X POST http://localhost:8080/tasks \
+  curl -i -X POST <LocalHost>/tasks \
     -H "Content-Type: application/json" \
     -d '{"title":""}'
 
 Get task by identifier:
 
-  curl -i http://localhost:8080/tasks/1
+  curl -i <localhost>/tasks/1
 
 Not found example:
 
-  curl -i http://localhost:8080/tasks/999999
+  curl -i <localhost>/tasks/999999
 
 Mark task as complete:
 
-  curl -i -X PATCH http://localhost:8080/tasks/1/complete
+  curl -i -X PATCH <localhost>/tasks/1/complete
 
 ## Notes for Windows + WSL
 
 If you run the service in WSL, you can still call it from Windows or WSL using:
-  http://localhost:8080
+  <LocalHost>
 
