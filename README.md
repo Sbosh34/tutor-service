@@ -56,38 +56,38 @@ The service will start on your LocalHost
 
 Health:
 
-  curl -i <LocalHost>/health
+  curl -i \<LocalHost\>/health
 
 List tasks:
 
-  curl -i <LocalHost>/tasks
+  curl -i \<LocalHost\>/tasks
 
 Create a task:
 
-  curl -i -X POST <LocalHost>/tasks \
+  curl -i -X POST \<LocalHost>/tasks \
     -H "Content-Type: application/json" \
     -d '{"title":"First task"}'
 
 Validation example (title is required):
 
-  curl -i -X POST <LocalHost>/tasks \
+  curl -i -X POST \<LocalHost\>/tasks \
     -H "Content-Type: application/json" \
     -d '{"title":""}'
 
 Get task by identifier:
 
-  curl -i <localhost>/tasks/1
+  curl -i \<localhost\>/tasks/1
 
 Not found example:
 
-  curl -i <localhost>/tasks/999999
+  curl -i \<localhost\>/tasks/999999
 
 Mark task as complete:
 
-  curl -i -X PATCH <localhost>/tasks/1/complete
+  curl -i -X PATCH \<localhost\>/tasks/1/complete
 
 ## Notes for Windows + WSL
 
 If you run the service in WSL, you can still call it from Windows or WSL using:
-  <LocalHost>
+  \<LocalHost\>
 
