@@ -1,6 +1,10 @@
 # TutorHub Service
 
+![CI](https://github.com/Sbpsh34/tutor-service/actions/workflows/ci.yml/badge.svg)
+
 Backend service for TutorHub, built with Spring Boot and PostgreSQL.
+
+
 
 ## What this service currently does
 
