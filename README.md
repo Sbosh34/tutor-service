@@ -56,35 +56,41 @@ The service will start on your LocalHost
 
 Health:
 
-  curl -i .../health
+    curl -i .../health
 
 List tasks:
 
-  curl -i .../tasks
+    curl -i .../tasks
 
 Create a task:
 
-  curl -i -X POST .../tasks \
+    curl -i -X POST .../tasks \
     -H "Content-Type: application/json" \
     -d '{"title":"First task"}'
 
 Validation example (title is required):
 
-  curl -i -X POST .../tasks \
+    curl -i -X POST .../tasks \
     -H "Content-Type: application/json" \
     -d '{"title":""}'
 
 Get task by identifier:
 
-  curl -i .../tasks/1
+    curl -i .../tasks/1
 
 Not found example:
 
-  curl -i .../tasks/999999
+    curl -i .../tasks/999999
 
 Mark task as complete:
 
-  curl -i -X PATCH .../tasks/1/complete
+    curl -i -X PATCH .../tasks/1/complete
+
+Update task title
+
+    curl -i http://localhost:8080/tasks/1 \
+    -H "Content-Type: application/json" \
+    -d '{"title":"Write new title brev"}'
 
 Delete task
   

@@ -55,6 +55,16 @@ public class TaskController{
 		return toResponse(task);
 	}
 
+	@PatchMapping("/{id}")
+	public TaskResponse updateTitle(@PathVariable Long id, @Valid @RequestBody UpdateTaskRequest request){
+		Task task = repo.findById(id).orElseThrow( () -> new NotFoundException("Task with id "+id+" not found"));
+		//Change the title
+		task.setTitle(request.title());
+		task = repo.save(task);
+
+		return toResponse(task);
+	}
+
 	@DeleteMapping("{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 
