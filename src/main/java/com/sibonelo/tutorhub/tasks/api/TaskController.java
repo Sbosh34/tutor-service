@@ -7,6 +7,10 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.springframework.data.domain.Page; 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort; 
 
 @RestController
 @RequestMapping("/tasks")
@@ -30,8 +34,23 @@ public class TaskController{
 	}
 
 	@GetMapping
-	public List<TaskResponse> list(){
-		return repo.findAll().stream().map(this::toResponse).toList();
+	public Page<TaskResponse> list( // Returns a Page (paged response) of TaskResponse objects
+        	@RequestParam(required = false) Boolean completed, // Optional filter: completed=true/false
+        	@PageableDefault( // Sets defaults when client does not supply page/size/sort
+                size = 20, // Default page size
+                sort = "createdAt", // Default sort field
+                direction = Sort.Direction.DESC )	
+		Pageable pageable ) 	
+	{  
+
+        	if (completed == null) { 
+        		return repo.findAll(pageable) 
+        	        .map(this::toResponse); 
+    		}
+
+    
+    		return repo.findByCompleted(completed, pageable) // Fetches only tasks matching completed=true/false
+        		    .map(this::toResponse); // Converts each Task into a TaskResponse while keeping paging metadata
 	}
 	
 	@GetMapping("/{id}")
