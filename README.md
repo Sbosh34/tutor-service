@@ -1,7 +1,6 @@
 # TutorHub Service
 
-![CI](https://github.com/Sbpsh34/tutor-service/actions/workflows/ci.yml/badge.svg)
-
+[![CI](https://github.com/Sbosh34/tutor-service/actions/workflows/ci.yml/badge.svg)](https://github.com/Sbosh34/tutor-service/actions/workflows/ci.yml)
 Backend service for TutorHub, built with Spring Boot and PostgreSQL.
 
 
@@ -14,8 +13,11 @@ Backend service for TutorHub, built with Spring Boot and PostgreSQL.
   - List tasks
   - Get a task by identifier
   - Mark a task as complete
+  - Update a task
+  - Delete a task
   - Validation errors return a clear JSON response
   - Missing tasks return a clear JSON response
+  - Allows pagination
 
 ## Requirements
 
