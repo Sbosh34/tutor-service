@@ -3,6 +3,7 @@ package com.sibonelo.tutorhub.tasks.api;
 import com.sibonelo.tutorhub.tasks.domain.Task;
 import com.sibonelo.tutorhub.tasks.repo.TaskRepository;
 import jakarta.validation.Valid;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -52,5 +53,14 @@ public class TaskController{
 
 		}
 		return toResponse(task);
+	}
+
+	@DeleteMapping("{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+
+	public void delete(@PathVariable Long id){
+		Task task = repo.findById(id).orElseThrow( () -> new NotFoundException("task with " + id +" not Found"));
+
+		repo.delete(task);
 	}
 }
