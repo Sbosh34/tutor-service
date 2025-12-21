@@ -95,7 +95,31 @@ Update task title
 Delete task
   
     curl -i -X DELETE .../tasks/id  
+
 ## Notes for Windows + WSL
+
+## Pagination, Sorting, and Filtering
+
+The `GET /tasks` endpoint supports **pagination** and **sorting** via Spring-style query parameters, and can optionally **filter** by completion status.
+
+### Query parameters
+- `page` (number, default `0`): zero-based page index  
+- `size` (number, default `20`): page size  
+- `sort` (string, optional): sorting in the form `field,direction` (for example `createdAt,desc`)  
+- `completed` (boolean, optional): filter tasks by completion status (`true` or `false`)
+
+### Examples
+List tasks (defaults apply):
+```bash
+curl -i "http://localhost:8080/tasks"
+
+Fetch the first 5 tasks, newest first:
+
+    curl -i .../tasks?page=0&size=5&sort=createdAt,desc
+
+Fetch only the finished tasks
+
+    curl -i .../tasks?completed=true&page=0&size=10
 
 If you run the service in WSL, you can still call it from Windows or WSL using:
   \<LocalHost\>
